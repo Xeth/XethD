@@ -10,7 +10,7 @@ namespace  Xeth{
 std::string ApplicationPath::Vendors()
 {
     boost::filesystem::path current = boost::filesystem::current_path();
-    std::string path = current.str();
+    std::string path = current.string();
 
 #if defined(__WINDOWS_OS__)
     path.append("\\vendor\\bin");

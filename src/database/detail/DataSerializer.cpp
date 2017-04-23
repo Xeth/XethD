@@ -16,7 +16,7 @@ Json::Value DataSerializer<Json::Value>::operator()(const char *key, const char 
 bool DataSerializer<Json::Value>::operator()(const char *key, const char *value, Json::Value &result) const
 {
     Json::Reader reader;
-    return reader.parse(content, result, false);
+    return reader.parse(value, result, false);
 }
 
 

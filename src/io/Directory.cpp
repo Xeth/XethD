@@ -10,7 +10,7 @@ Directory::Directory(const Settings &settings, bool create)
 {
     if(settings.has("datadir"))
     {
-        _path = boost::filesystem::absolute(settings.get("datadir").toStdString());
+        _path = boost::filesystem::absolute(settings.get("datadir"));
     }
     else
     {
@@ -90,7 +90,7 @@ bool Directory::createIfNotExistsNoThrow()
 
 boost::filesystem::path Directory::GetDefaultPath()
 {
-    return ApplicationPath::XethData().toStdString();
+    return ApplicationPath::XethData();
 }
 
 boost::filesystem::path Directory::ResolvePath(const char *path)

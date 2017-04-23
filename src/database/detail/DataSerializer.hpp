@@ -30,7 +30,7 @@ class DataSerializer<Json::Value>
 
     public:
 
-        QJsonObject operator()(const char *, const char *) const;
+        Json::Value operator()(const char *, const char *) const;
         bool operator()(const char *, const char *, Json::Value &) const;
         std::string operator ()(const Json::Value &) const;
 };
