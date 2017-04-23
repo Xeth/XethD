@@ -21,6 +21,7 @@ using Ethereum::Literal;
 
 
 typedef Ethereum::Stealth::Key<Cipher> StealthKey;
+typedef Ethereum::Stealth::Address StealthAddress;
 typedef Ethereum::Stealth::KeySerializer<Cipher> StealthKeySerializer;
 typedef Ethereum::Stealth::PaymentResolver<StealthKey> StealthResolver;
 
