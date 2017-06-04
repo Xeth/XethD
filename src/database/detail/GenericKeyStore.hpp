@@ -7,7 +7,9 @@
 namespace Xeth{
 
 
-template<class Key, class Address, class KeySerializer>
+
+
+template<class Key, class Address, class KeySerializer, class FileNameFactory, class FileMatcher>
 class GenericKeyStore : 
     protected FileStore<Key, KeySerializer>
 {
@@ -19,19 +21,17 @@ class GenericKeyStore :
         typedef typename Base::DataSerializer DataSerializer;
 
     public:
-        GenericKeyStore(const std::string &path, const char *extension);
-        GenericKeyStore(const boost::filesystem::path &path, const char *extension);
+        GenericKeyStore(const std::string &path);
+        GenericKeyStore(const boost::filesystem::path &path);
 
         bool replace(const Key &);
-        bool replace(const Key &, time_t);
-
         bool insert(const Key &);
-        bool insert(const Key &, time_t);
 
         Iterator find(const char *address) const;
         Iterator find(const Address &) const;
 
         Key get(const char *address) const;
+        Key get(const Address &) const;
 
         using Base::begin;
         using Base::end;
@@ -44,9 +44,12 @@ class GenericKeyStore :
 
     private:
         std::string makeAddress(const Key &) const;
+        bool insert(const char *, const Key &);
+        bool replace(const char *, const Key &);
 
     private:
         StoreEventEmitter<std::string, Key> _emitter;
+        FileNameFactory _nameFactory;
 
 };
 

@@ -14,6 +14,7 @@ namespace Xeth{
 
 using Ethereum::Literal;
 
+typedef Ethereum::Address EthereumAddress;
 typedef Ethereum::SecuredKey<Cipher> EthereumKey;
 typedef Ethereum::KeySerializer<Cipher> EthereumKeySerializer;
 typedef Ethereum::HexCaseCheckSum EthereumCheckSum;

@@ -14,6 +14,9 @@
 namespace Xeth{
 
 
+
+
+
 template<class Value, class Serializer>
 class FileStore
 {
@@ -26,15 +29,21 @@ class FileStore
 
     public:
 
-        FileStore(const std::string &path, const std::string &ext);
-        FileStore(const boost::filesystem::path &, const std::string &ext);
+        FileStore(const std::string &path, const std::string &ext = "");
+        FileStore(const boost::filesystem::path &, const std::string &ext = "");
+
+        bool replace(Iterator, const Value &);
 
         bool replace(const char *id, const Value &);
         bool insert(const char *id, const Value &);
         bool remove(const char *);
 
+        template<class Matcher>
+        Iterator find(const Matcher &) const;
         Iterator find(const char *) const;
-        Value get(const char *) const;
+
+        template<class Criterion>
+        Value get(const Criterion &) const;
 
         Iterator begin() const;
         Iterator end() const;

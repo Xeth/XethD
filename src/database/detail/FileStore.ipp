@@ -46,6 +46,12 @@ bool FileStore<Value, Serializer>::replace(const char *id, const Value &val)
     return write(makePath(id), val);
 }
 
+template<class Value, class Serializer>
+bool FileStore<Value, Serializer>::replace(Iterator it, const Value &val)
+{
+    return write(it.path().string(), val);
+}
+
 
 template<class Value, class Serializer>
 bool FileStore<Value, Serializer>::insert(const char *id, const Value &val)
@@ -80,14 +86,31 @@ typename FileStore<Value, Serializer>::Iterator FileStore<Value, Serializer>::fi
     return it;
 }
 
+template<class Value, class Serializer>
+template<class Matcher>
+typename FileStore<Value, Serializer>::Iterator FileStore<Value, Serializer>::find(const Matcher &matcher) const
+{
+    Iterator it=begin(), e=end();
+    for(; it!=e; ++it)
+    {
+        if(_matcher(it.path()))
+        {
+            break;
+        }
+    }
+    return it;
+}
+
+
 
 template<class Value, class Serializer>
-Value FileStore<Value, Serializer>::get(const char *id) const
+template<class Criterion>
+Value FileStore<Value, Serializer>::get(const Criterion &criterion) const
 {
-    Iterator it = find(id);
+    Iterator it = find(criterion);
     if(it==end())
     {
-        throw std::runtime_error("key not found");
+        throw std::runtime_error("file not found");
     }
     return *it;
 }
