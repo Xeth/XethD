@@ -30,7 +30,7 @@ bool Settings::has(const char *name) const
 }
 
 
-const char * Settings::get(const char *name) const
+std::string Settings::get(const char *name) const
 {
 
     for(SourceMap::const_iterator it = _sources.begin(), end = _sources.end(); it != end; ++it)
@@ -55,7 +55,7 @@ const char * Settings::get(const char *name) const
 
 
 
-const char * Settings::get(const char *name, const char *defaultVal) const
+std::string Settings::get(const char *name, const char *defaultVal) const
 {
     for(SourceMap::const_iterator it = _sources.begin(), end = _sources.end(); it != end; ++it)
     {

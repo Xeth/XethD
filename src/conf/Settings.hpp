@@ -41,8 +41,8 @@ class Settings
         template<class T>
         T get(const char *, const T &) const throw();
 
-        const char * get(const char *)  const;
-        const char * get(const char *, const char *) const;
+        std::string get(const char *)  const;
+        std::string get(const char *, const char *) const;
 
         template<class T, class Vector>
         void getVector(const char *, Vector &) const;

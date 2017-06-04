@@ -22,6 +22,9 @@ class ConfigStore :
         ConfigStore(const char *path);
         ConfigStore(const std::string &);
         ConfigStore(const boost::filesystem::path &path);
+
+        bool has(const char *) const;
+        std::string get(const char *) const;
 };
 
 }

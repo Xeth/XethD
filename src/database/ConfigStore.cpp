@@ -20,6 +20,17 @@ ConfigStore::ConfigStore(const boost::filesystem::path &path) :
 {}
 
 
+bool ConfigStore::has(const char *key) const
+{
+    return Base::has(key);
+}
+
+
+std::string ConfigStore::get(const char *key) const
+{
+    return Base::get(key);
+}
+
 
 
 
