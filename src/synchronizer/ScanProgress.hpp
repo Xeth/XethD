@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
-#include "ScanProgressEventEmitter.hpp"
+#include "detail/ScanProgressEventEmitter.hpp"
 
 namespace Xeth{
 
