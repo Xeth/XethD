@@ -17,7 +17,7 @@ PartialScanResult MakePartialScanResult
     PartialScanResult result;
     result.transactions = std::make_pair(tBegin, tEnd);
     result.stealthPayments = std::make_pair(sBegin, sEnd);
-    result.lastBlock = lastBlock;
+    result.scanIndex = lastBlock;
     return result;
 }
 
@@ -30,7 +30,7 @@ PartialScanResult MakePartialScanResult(const ScanResult &result, size_t txCount
 
     partial.transactions = std::make_pair(moveBack(txEnd, txCount), txEnd);
     partial.stealthPayments = std::make_pair(moveBack(stEnd, stCount), stEnd);
-    partial.lastBlock = blockIndex;
+    partial.scanIndex = blockIndex;
     return partial;
 }
 

@@ -13,7 +13,7 @@ struct ScanResult
 {
     Json::Value transactions;
     Json::Value stealthPayments;
-    size_t lastBlock;
+    size_t scanIndex;
 };
 
 
@@ -22,7 +22,7 @@ struct PartialScanResult
     JsonArrayRange transactions;
     JsonArrayRange stealthPayments;
 
-    size_t lastBlock;
+    size_t scanIndex;
 };
 
 
