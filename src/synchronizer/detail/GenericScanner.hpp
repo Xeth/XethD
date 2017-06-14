@@ -6,6 +6,7 @@
 
 #include "../ScanAction.hpp"
 #include "../ScanProgress.hpp"
+#include "../SynchronizerContext.hpp"
 
 
 #include "ScanIndexUpdater.hpp"
@@ -20,7 +21,7 @@ class GenericScanner
 {
 
     public:
-        GenericScanner(Ethereum::Connector::Provider &, DataBase &, size_t scanChunk=100, size_t scanInterval=100);
+        GenericScanner(SynchronizerContext &, size_t scanChunk=100, size_t scanInterval=100);
         ~GenericScanner();
 
 
@@ -49,9 +50,7 @@ class GenericScanner
         typedef Xeth::ScopedScanPause<GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator> > ScopedScanPause;
 
     private:
-        Ethereum::Connector::Provider &_provider;
-        DataBase &_database;
-
+        SynchronizerContext &_context;
 
         Input _input;
         ScanIndexStore _indexStore;

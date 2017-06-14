@@ -2,16 +2,15 @@ namespace Xeth{
 
 
 template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
-GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::GenericScanner(Ethereum::Connector::Provider &provider, DataBase &database, size_t scanChunk, size_t scanInterval) :
-    _provider(provider),
-    _database(database),
-    _input(_provider),
-    _indexStore(_provider, _database),
-    _indexEstimator(_provider),
-    _scanCriteria(scanChunk),
-    _scanInterval(scanInterval)
+GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::GenericScanner(SynchronizerContext &context) :
+    _context(context),
+    _input(_context.getConnector()),
+    _indexStore(_context.getConnector(), _context.getDataBase()),
+    _indexEstimator(_context.getConnector()),
+    _scanCriteria(_context.getSettings().get<size_t>("scan_chunk", 100)),
+    _scanInterval(_context.getSettings().get<size_t>("scan_interval", 100))
 {
-    _scanCriteria.registerPartialResultObserver(ScanResultSaver(_database));
+    _scanCriteria.registerPartialResultObserver(ScanResultSaver(_context.getDataBase()));
     _scanCriteria.registerResultObserver(ScanIndexUpdater<ScanIndexStore, ScanCriteria>(_indexStore, _scanCriteria));
 }
 

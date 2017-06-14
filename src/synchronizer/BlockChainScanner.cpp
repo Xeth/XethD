@@ -7,8 +7,8 @@ namespace Xeth{
 
 
 
-BlockChainScanner::BlockChainScanner(Ethereum::Connector::Provider &provider, DataBase &database, size_t scanChunk, size_t scanInterval):
-    Base(provider, database, scanChunk, scanInterval)
+BlockChainScanner::BlockChainScanner(SynchronizerContext &context):
+    Base(context)
 {}
 
 

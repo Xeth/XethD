@@ -6,6 +6,7 @@
 #include "AccountScanCriterion.hpp"
 #include "StealthScanCriterion.hpp"
 #include "BlockChainScanCriteria.hpp"
+#include "SynchronizerContext.hpp"
 
 
 #include "detail/GenericScanner.hpp"
@@ -37,7 +38,7 @@ class BlockChainScanner :
 
 
     public:
-        BlockChainScanner(Ethereum::Connector::Provider &, DataBase &, size_t scanChunk=100, size_t scanInterval=500);
+        BlockChainScanner(SynchronizerContext &);
 
         void addAddress(const std::string &);
         void addAddress(const std::string &, time_t);
