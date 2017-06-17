@@ -4,6 +4,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/thread/future.hpp>
 
 
 
@@ -17,13 +18,13 @@ class ThreadPool
         ~ThreadPool();
 
         template<class Task, class Arguments>
-        void execute(const Arguments &);
+        boost::unique_future<void> execute(const Arguments &);
 
         template<class Task>
-        void execute();
+        boost::unique_future<void> execute();
 
         template<class Task>
-        void execute(const Task &);
+        boost::unique_future<void> execute(const Task &);
 
     private:
         boost::asio::io_service _io;

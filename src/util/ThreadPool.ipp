@@ -2,24 +2,26 @@ namespace Xeth{
 
 
 template<class Task>
-void ThreadPool::execute(const Task &task)
+boost::unique_future<void> ThreadPool::execute(const Task &task)
 {
-    _io.post(task);
+    boost::shared_ptr<boost::packaged_task<void> > wrap = boost::make_shared<boost::packaged_task<void> >(task);
+    _io.post(boost::bind(&boost::packaged_task<void>::operator(), wrap));
+    return wrap->get_future();
 }
 
 
 
 template<class Task, class Arguments>
-void ThreadPool::execute(const Arguments &args)
+boost::unique_future<void> ThreadPool::execute(const Arguments &args)
 {
-    execute(Task(args));
+    return execute(Task(args));
 }
 
 
 template<class Task>
-void ThreadPool::execute()
+boost::unique_future<void> ThreadPool::execute()
 {
-    execute(Task());
+    return execute(Task());
 }
 
 
