@@ -4,11 +4,11 @@
 #include "database/DataBase.hpp"
 
 
-#include "../ScanAction.hpp"
 #include "../ScanProgress.hpp"
 #include "../SynchronizerContext.hpp"
 
 
+#include "ScanAction.hpp"
 #include "ScanIndexUpdater.hpp"
 #include "ScanResultSaver.hpp"
 #include "ScopedScanPause.hpp"
