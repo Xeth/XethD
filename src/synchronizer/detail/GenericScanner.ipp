@@ -17,9 +17,7 @@ GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::Generic
 
 template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
 GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::~GenericScanner()
-{
-    _action.stop();
-}
+{}
 
 
 
@@ -50,7 +48,7 @@ const ScanProgress & GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanInd
 template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
 bool GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::isActive() const
 {
-    return _action.isActive();
+    return  _scanFuture.valid() && !_scanFuture.is_ready();
 }
 
 
@@ -60,7 +58,7 @@ template<class Criterion, class Arguments>
 void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::addScanCriterion(const Arguments &args, time_t creationTime)
 {
 
-    ScopedScanPause(this);
+//    ScopedScanPause(this);
     size_t index = _indexStore.get(args);
     if(!index)
     {
@@ -75,7 +73,7 @@ template<class Criterion, class Arguments>
 void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::addScanCriterion(const Arguments &args)
 {
 
-    ScopedScanPause(this);
+//    ScopedScanPause(this);
     size_t index = _indexStore.get(args);
     if(!index)
     {
@@ -87,25 +85,20 @@ void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::ad
 
 
 
-template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
-void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::stop()
-{
-    _scanAction.stop();
-}
 
 
 template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
 void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::scan()
 {
-    _scanAction.loop(_scanCriteria, _input, _scanProgress, _scanInterval);
+    _scanFuture = _context.getThreadPool().execute<ScanWork>(_scanCriteria, _input, _scanResult, _scanProgress);
 }
 
 
 template<class ScanCriteria, class Input, class ScanIndexStore, class ScanIndexEstimator>
 void GenericScanner<ScanCriteria, Input, ScanIndexStore, ScanIndexEstimator>::syncScan()
 {
-    _scanAction.start(_scanCriteria, _input, _scanProgress);
-    _scanAction.waitToComplete();
+    ScanWork work(_scanCriteria, _input, _scanResult, _scanProgress);
+    work();
 }
 
 

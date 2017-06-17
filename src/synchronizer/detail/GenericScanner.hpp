@@ -21,6 +21,9 @@ class GenericScanner
 {
 
     public:
+        typedef Xeth::ScanWork<ScanCriteria, Input, ScanProgress> ScanWork;
+
+    public:
         GenericScanner(SynchronizerContext &, size_t scanChunk=100, size_t scanInterval=100);
         ~GenericScanner();
 
@@ -62,6 +65,7 @@ class GenericScanner
 
 
         size_t _scanInterval;
+        boost::unique_future<void> _scanFuture;
 };
 
 
