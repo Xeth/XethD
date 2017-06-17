@@ -3,10 +3,7 @@ namespace Xeth{
 
 template<class ScanCriteria, class Data, class ScanProgress>
 ScanWorkLoop<ScanCriteria, Data, ScanProgress>::ScanWorkLoop(ScanCriteria &criteria, Data &data, ScanResult &result, ScanProgress &progress, unsigned sleepTime) :
-    _criteria(criteria),
-    _data(_data),
-    _result(result),
-    _progress(progress),
+    Base(criteria, data, result, progress),
     _sleepTime(sleepTime)
 {}
 
@@ -16,9 +13,10 @@ ScanWorkLoop<ScanCriteria, Data, ScanProgress>::ScanWorkLoop(ScanCriteria &crite
 template<class ScanCriteria, class Data, class ScanProgress>
 void ScanWorkLoop<ScanCriteria, Data, ScanProgress>::operator()()
 {
+    Base::assign();
     while(true)
     {
-        _criteria.parse(_data, _result, _progress);
+        Base::execute();
         sleep(_sleepTime);
     }
 }

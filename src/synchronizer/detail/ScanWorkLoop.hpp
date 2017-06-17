@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 #include "../ScanResult.hpp"
+#include "ScanWork.hpp"
 
 
 namespace Xeth{
@@ -9,18 +10,17 @@ namespace Xeth{
 
 
 template<class ScanCriteria, class Data, class ScanProgress>
-class ScanWorkLoop
+class ScanWorkLoop : public ScanWork<ScanCriteria, Data, ScanProgress>
 {
+    public:
+        typedef ScanWork<ScanCriteria, Data, ScanProgress> Base;
+
     public:
         ScanWorkLoop(ScanCriteria &, Data &, ScanResult &, ScanProgress &, unsigned sleepTime = 5);
 
         void operator()();
 
     private:
-        ScanCriteria &_criteria;
-        Data &_data;
-        ScanResult &_result;
-        ScanProgress &_progress;
         unsigned _sleepTime;
 };
 
