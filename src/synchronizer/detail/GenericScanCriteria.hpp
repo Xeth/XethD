@@ -77,6 +77,7 @@ class GenericScanCriteria
         bool _interrupted;
         size_t _limit;
 
+        boost::mutex _mutex;
         Container _criteria;
         ScanCriteriaEventEmitter _eventEmitter;
         Parser _parser;

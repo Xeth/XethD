@@ -44,6 +44,9 @@ size_t GenericScanCriteria<Parser>::size() const
 template<class Parser>
 void GenericScanCriteria<Parser>::clear()
 {
+
+    boost::mutex::scoped_lock lock(_mutex);
+
     for(Container::iterator it=_criteria.begin(), end=_criteria.end(); it!=end; ++it)
     {
         delete it->second;
@@ -70,6 +73,7 @@ template<class Parser>
 void GenericScanCriteria<Parser>::addCriterion(size_t scanOffset, ScanCriterion *criterion)
 {
 
+    boost::mutex::scoped_lock lock(_mutex);
     Container::iterator it = std::lower_bound(_criteria.begin(), _criteria.end(), scanOffset, CriterionCompare());
     if(it==_criteria.end())
     {
@@ -121,6 +125,7 @@ template<class Input, class Progress>
 size_t GenericScanCriteria<Parser>::parse(Input &input, ScanResult &result, Progress &progress)
 {
 
+    boost::mutex::scoped_lock lock(_mutex);
     if(!_criteria.size())
     {
         progress.setValue(100);
