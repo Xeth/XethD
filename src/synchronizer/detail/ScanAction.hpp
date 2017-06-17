@@ -3,11 +3,11 @@
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "ScanProgress.hpp"
-#include "ScanResult.hpp"
+#include "../ScanProgress.hpp"
+#include "..//ScanResult.hpp"
 
-#include "detail/ScanWork.hpp"
-#include "detail/ScanWorkLoop.hpp"
+#include "ScanWork.hpp"
+#include "ScanWorkLoop.hpp"
 
 namespace Xeth{
 
@@ -24,6 +24,8 @@ class ScanAction
 
         template<class Data>
         void loop(Data &, ScanCriteria &, ScanProgress &, unsigned sleepTime);
+
+
 
         void stop();
         void waitToComplete();
