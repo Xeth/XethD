@@ -1,7 +1,3 @@
-find_package(JsonCPP REQUIRED)
-find_package(LevelDB REQUIRED)
-find_package(CryptoPP REQUIRED) 
-
 if(ENABLE_GMP)
     find_package(GMP)
 endif()
@@ -33,15 +29,16 @@ target_include_directories(
     PUBLIC
     ${Boost_INCLUDE_DIRS}
     ${JSONCPP_INCLUDE_DIR}
-    ${CRYPTOPP_INCLUDE_DIR}
     ${LEVELDB_INCLUDE_DIR}
     ${PROJECT_SOURCE_DIR}/src
-    ${PROJECT_BINARY_DIR}/libethrpc/include
-    ${PROJECT_BINARY_DIR}/libethcrypto/include
+    ${ETHCRYPTO_INCLUDE_DIRS}
+    ${ETHRPC_INCLUDE_DIRS}
+    ${ETHSTEALTH_INCLUDE_DIRS}
     ${PROJECT_BINARY_DIR}/libbitprofile/include
-    ${PROJECT_BINARY_DIR}/libethstealth/include
+#    ${BITPROFILE_INCLUDE_DIRS}
 )
 
 add_dependencies(xethdlib ethrpc)
 add_dependencies(xethdlib ethcrypto)
 add_dependencies(xethdlib ethstealth)
+add_dependencies(xethdlib bitprofile)

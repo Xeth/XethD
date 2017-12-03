@@ -1,14 +1,3 @@
-find_package(JsonCPP REQUIRED)
-#set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS system filesystem thread program_options random regex date_time chrono REQUIRED)
-find_package(LevelDB REQUIRED)
-find_package(GMP)
-
-
-set(CMAKE_THREAD_PREFER_PTHREAD ON)
-find_package(Threads REQUIRED)
-
-
 set(APP_SOURCES src/main.cpp)
 
 
@@ -30,17 +19,19 @@ target_include_directories(
     ${Boost_INCLUDE_DIRS}
     ${JSONCPP_INCLUDE_DIR}
     ${PROJECT_SOURCE_DIR}/src
-    ${PROJECT_BINARY_DIR}/libethrpc/include
-    ${PROJECT_BINARY_DIR}/libethcrypto/include
-    ${PROJECT_BINARY_DIR}/libethstealth/include
+    ${ETHCRYPTO_INCLUDE_DIRS}
+    ${ETHRPC_INCLUDE_DIRS}
+    ${ETHSTEALTH_LIBRARIES}
+    ${BITPROFILE_INCLUDE_DIRS}
 )
 
 target_link_libraries(xethd
     xethdlib
-    ethstealth
-    bitprofile
-    ethrpc
-    ethcrypto
+    ${BITPROFILE_LIBRARIES}
+    ${ETHSTEALTH_LIBRARIES}
+    ${ETHRPC_LIBRARIES}
+    ${ETHCRYPTO_LIBRARIES}
+
     ${JSONCPP_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     ${Boost_THREAD_LIBRARY}
@@ -50,7 +41,6 @@ target_link_libraries(xethd
     ${Boost_REGEX_LIBRARY}
     ${Boost_DATE_TIME_LIBRARY}
     ${Boost_CHRONO_LIBRARY}
-    ${CRYPTOPP_LIBRARY}
     ${LEVELDB_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT} 
 )

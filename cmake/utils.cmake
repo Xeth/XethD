@@ -1,11 +1,3 @@
-find_package(JsonCPP REQUIRED)
-find_package(Boost COMPONENTS system filesystem thread program_options random regex date_time chrono REQUIRED)
-find_package(LevelDB REQUIRED)
-find_package(GMP)
-set(CMAKE_THREAD_PREFER_PTHREAD ON)
-find_package(Threads REQUIRED)
-
-
 add_executable(dumpdb ${PROJECT_SOURCE_DIR}/utils/dumpdb.cpp)
 target_include_directories(dumpdb PUBLIC ${UTILS_INCLUDES})
 target_link_libraries(dumpdb 

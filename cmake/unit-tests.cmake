@@ -1,12 +1,3 @@
-find_package(JsonCPP REQUIRED)
-find_package(Boost COMPONENTS system filesystem thread program_options random regex date_time chrono REQUIRED)
-find_package(LevelDB REQUIRED)
-
-set(CMAKE_THREAD_PREFER_PTHREAD ON)
-find_package(Threads REQUIRED)
-find_package(GMP)
-
-
 file(GLOB_RECURSE TEST_SOURCES
     "test/*.cpp"
 )
@@ -46,7 +37,6 @@ target_link_libraries(xeth-tests
     ${Boost_REGEX_LIBRARY}
     ${Boost_DATE_TIME_LIBRARY}
     ${Boost_CHRONO_LIBRARY}
-    ${CRYPTOPP_LIBRARY}
     ${LEVELDB_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
 )
